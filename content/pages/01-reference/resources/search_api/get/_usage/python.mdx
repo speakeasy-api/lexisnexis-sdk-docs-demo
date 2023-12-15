@@ -4,10 +4,10 @@ import WithStatusBar from '@/src/components/WithStatusBar';
 <WithStatusBar statusItems={[["Status", "200"], ["Content-Type", "application/json"]]}>
   <CH.Code>
   ```python Get.py
-  import sdk
-from sdk.models import components, operations
+  import evolved
+from evolved.models import components, operations
 
-s = sdk.SDK(
+s = evolved.Evolved(
     bearer_auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
