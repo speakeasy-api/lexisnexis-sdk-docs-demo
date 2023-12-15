@@ -1,7 +1,7 @@
 configVersion: 1.0.0
 generation:
   comments: {}
-  sdkClassName: SDK
+  sdkClassName: evolved
   maintainOpenAPIOrder: true
   usageSnippets:
     optionalPropertyRendering: withExample
@@ -44,4 +44,4 @@ python:
   inputModelSuffix: input
   maxMethodParams: 4
   outputModelSuffix: output
-  packageName: openapi
+  packageName: evolved
