@@ -1,0 +1,492 @@
+openapi: 3.0.3
+info:
+  title: LexisNexis Unified Content API
+  description: >-
+    This API allows users to retrieve content across the LexisNexis unified content archive.
+  termsOfService: https://www.lexisnexis.com/terms/
+  contact:
+    name: Contact LexisNexis
+    url: https://www.lexisnexis.com/en-us/contact-us/contact-us-rep.page
+  version: 1.0.0
+servers:
+  - url: https://dev-gateway.api-dev.route53.lexis.com/nexisdataplus
+    description: Dev server
+    x-speakeasy-server-name: dev
+  - url: https://cert-gateway.api-dev.route53.lexis.com/nexisdataplus
+    description: Cert server
+    x-speakeasy-server-name: cert
+  - url: https://api.api-prod.route53.lexis.com/nexisdataplus
+    description: Prod server
+    x-speakeasy-server-name: prod
+security:
+  - bearerAuth: []
+tags:
+  - name: Search API
+paths:
+  /search:
+    get:
+      description: Returns the content that matches the specified query
+      operationId: searchAPI
+      x-speakeasy-name-override: get
+      x-speakeasy-group: SearchAPI
+      tags:
+        - Search API
+      parameters:
+        - name: content
+          in: query
+          required: true
+          description: Content type to search on.
+          schema:
+            $ref: '#/components/schemas/ContentChoice'
+        - name: query
+          in: query
+          required: true
+          description: |
+           Search query terms. <br> Query input with character length between 1 and 10000 characters.
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 10000
+        - name: filters
+          in: query
+          description: Search filter criteria.
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: How to sort the result set.
+          schema:
+            $ref: '#/components/schemas/SortChoice'
+        - name: limit
+          in: query
+          description: |
+            Number of results to return. <br> Valid range: 1 to 200
+          schema:
+            type: integer
+            minimum: 0
+            exclusiveMinimum: true
+            maximum: 200
+            default: 10
+        - name: group_duplicates
+          in: query
+          description: The degree to which duplicate search results are grouped.
+          schema:
+            $ref: '#/components/schemas/GroupingChoice'
+        - name: include_filters
+          in: query
+          description: Request to include search post filters.
+          schema:
+            type: boolean
+            default: true
+        - name: include_full_document
+          in: query
+          description: Request to include full document content in response.
+          schema:
+            type: boolean
+            default: false
+        - name: external_client_id
+          in: query
+          description: |
+            Customer's id. <br> external_client_id input with character length between 0 and 50 characters.
+          schema:
+            type: string
+            minLength: 0
+            maxLength: 50
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '202':
+          description: Accepted. The request has been accepted for processing, but the processing has not been completed. (ii)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcceptedResponse'
+        '400':
+          description: Bad request. The server could not understand the request due to invalid syntax.
+        '401':
+          description: Unauthorized. User not authenticated.
+        '403':
+          description: Forbidden. User not authorized to access desired content.
+        '404':
+          description: Not Found. The server could not find the requested resource.
+        '429':
+          description: Too Many Requests. Indicates too many requests have been sent in a given amount of time (throttle limit exceeded).
+        '500':
+          description: Internal Server Error. Indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
+        '503':
+          description: Service Unavailable. The server cannot handle the request possibly because it is overloaded or down for maintenance.
+components:
+  schemas:
+    GroupingChoice:
+      description: |
+            This option allows you to reduce the number of repetitive documents in your result set. There are 2 Group Duplicates options:
+            - `high_similarity`: Documents must be nearly identical in order for the service to include them in the same group of similar documents.
+            - `moderate_similarity`: Documents with relatively less similarity can be included in the same group of similar documents.
+      type: string
+      enum:
+        - high_similarity
+        - moderate_similarity
+    ContentChoice:
+      description: |
+            This option lists the available resources of legal content. This list isn't necessarily limited to the types of content which are available to the current user. Not all listed content types are currently available through this API. Content includes:
+            - `news`: Limits results to the News content.
+      type: string
+      enum:
+        - news
+      default: news
+    SortChoice:
+      description: |
+            The selected content can be sorted by any of the listed properties, in accordance with the standard sorting behavior. By default, results will be sorted by relevance in the absence of the $sort query string parameter. Documents are returned per the sort selected, however order of appearance may change when refreshed.
+            - `date_asc`: Documents appear in pure chronological order by Date.
+            - `date_desc`: Documents appear in reverse chronological order by Date.
+            - `relevance_desc`: Documents appear in descending order by Relevance.
+      type: string
+      enum:
+        - date_asc
+        - date_desc
+        - relevance_desc
+      default: relevance_desc
+    Response:
+      description: >-
+        Represents a response containing document data and metadata, and including available filters when specifically requested.
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Document'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    AcceptedResponse:
+      type: object
+      properties:
+        retrieveToken:
+          type: string
+    Filter:
+      description: >-
+        Represents the filters available for the document(s) returned. This object is included when specifically requested through the `include_filters` parameter in the Request.
+      type: object
+      properties:
+        company:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The company name, such as "LEXISNEXIS GROUP".
+              id:
+                type: string
+                description: The company id.
+              count:
+                type: string
+                description: The count of all documents featuring the company and matching the query.
+          description: This tag lists the companies associated with the documents matching the query. This tag may not be present.
+        content_type:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The content type name.
+              id:
+                type: string
+                description: The content type id.
+              count:
+                type: string
+                description: The count of all documents featuring the content type and matching the query.
+          description: This tag lists the content types associated with the documents matching the query. This tag may not be present.
+        geography_by_document:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The geography name.
+              id:
+                type: string
+                description: The geography id.
+          description: This tag lists the geography continents, regions, countries, etc. associated with the documents matching the query the query. This tag may not be present.
+        industry:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The industry name.
+              id:
+                type: string
+                description: The industry id.
+          description: This tag lists the industries associated with the documents matching the query. This tag may not be present.
+        language:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The language name.
+              id:
+                type: string
+                description: The language id.
+              count:
+                type: string
+                description: The language count for all documents matching the query.
+          description: This tag lists the languages associated with the documents matching the query, either as stated in the original XML feed or as manually determined by LexisNexis. This tag may not be present.
+        negative_news:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The negative_news name.
+              id:
+                type: string
+                description: The negative_news id.
+              count:
+                type: string
+                description: The negative_news count for all documents matching the query.
+          description: This tag lists the negative news associated with the documents matching the query. This tag may not be present.
+        people:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The people name.
+              id:
+                type: string
+                description: The people id.
+              count:
+                type: string
+                description: The people count for all documents matching the query.
+          description: This tag lists the the well-known person or people referenced by the documents matching the query. This tag may not be present.
+        practice_areas_and_topics:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The industry name.
+              id:
+                type: string
+                description: The industry id.
+          description: This tag lists the practice areas and topics associated with the documents matching the query. This tag may not be present.
+        publication_location:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The publication location name.
+              id:
+                type: string
+                description: The publication location id.
+          description: This tag lists the publication locations of the documents matching the query. This tag may not be present.
+        publication_type:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The publication type name.
+              id:
+                type: string
+                description: The publication type id.
+              count:
+                type: string
+                description: The publication type count for all documents matching the query.
+          description: This tag lists the publication types of the documents matching the query. This tag may not be present.
+        publisher:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The publisher name.
+              id:
+                type: string
+                description: The publisher id.
+              count:
+                type: string
+                description: The publisher count for all documents matching the query.
+          description: This tag lists the publishers of the documents matching the query. This tag may not be present.
+        sources:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The source name.
+              id:
+                type: string
+                description: The source id.
+              count:
+                type: string
+                description: The source count for all documents matching the query.
+          description: This tag lists the sources of the documents matching the query. This tag may not be present.
+        subject:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The subject name.
+              id:
+                type: string
+                description: The subject id.
+          description: This tag lists the subject matter of the documents matching the query. This tag may not be present.
+        timeline:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The timeline name.
+              id:
+                type: string
+                description: The timeline id.
+              count:
+                type: string
+                description: The timeline count for all documents matching the query.
+          description: This tag lists the timeline of the documents matching the query. This tag may not be present.
+    Document:
+      description: >-
+        Represents an individual document, including its complete XML content when specifically requested.
+      type: object
+      properties:
+        lexis_nexis_identifier:
+          type: string
+          description: An alternate form of document ID.
+        product_content_set_identifier:
+          type: string
+          description: The Product Content Set Identifier aka PCSI is an internal LexisNexis ID that identifies certain sources.
+        royalty_reporting_key:
+          type: string
+          description: The reporting ID for the Royalty Reports.
+        publication_type:
+          type: string
+          description: The publication type associated with the document. This tag may not be present.
+        publication_name:
+          type: string
+          description: The name of the publication. This tag may not be present.
+        publication_date:
+          type: string
+          description: Publication generated. This value is passed through as-is and can be a future date based on author discretion. This tag may not be present.
+        normalized_publication_date:
+          type: string
+          description: This value is generated from the date and time sent by the publisher (if available), normalized to UTC. This tag may not be present.
+        aggregation_name:
+          type: string
+          description: The name of the aggregation. This tag may not be present.
+        copyright:
+          type: string
+          description: A copyright notice regarding this particular document, if specified in the original RSS-type feed. This tag may not be present.
+        word_length:
+          type: string
+          description: The number of words, or the length of the document.
+        language:
+          type: string
+          description: The language code of the item as stated in the original XML feed or as manually determined by LexisNexis. Language code is in the form of ISO 639-1 standard. This tag may not be present in case of invalid entry.
+        subject:
+          type: array
+          items:
+            $ref: '#/components/schemas/SmartIndexEntity'
+          description: This tag lists the subject matter of the document. This tag may not be present.
+        person:
+          type: array
+          items:
+            $ref: '#/components/schemas/SmartIndexEntity'
+          description: This tag lists the well-known person or people referenced by the document. This tag may not be present.
+        organization:
+          type: array
+          items:
+            $ref: '#/components/schemas/SmartIndexEntity'
+          description: This tag lists the organizations associated with the document. This tag may not be present.
+        company:
+          type: array
+          items:
+            $ref: '#/components/schemas/SmartIndexEntity'
+          description: This tag lists the companies associated with the document. This tag may not be present.
+        state:
+          type: array
+          items:
+            $ref: '#/components/schemas/SmartIndexEntity'
+          description: This tag lists the states associated with the document. This tag may not be present.
+        country:
+          type: array
+          items:
+            $ref: '#/components/schemas/SmartIndexEntity'
+          description: This tag lists the countries associated with the document. This tag may not be present.
+        industry:
+          type: array
+          items:
+            $ref: '#/components/schemas/SmartIndexEntity'
+          description: This tag lists the industries associated with the document. This tag may not be present.
+        section:
+          type: string
+          description: The section of the document. This tag may not be present.
+        title:
+          type: string
+          description: The headline of the document. This tag may not be present.
+        byline:
+          type: string
+          description: The name of the author. This tag may not be present.
+        abstract:
+          type: string
+          description: The abstract of the document. This abstract is stripped of all HTML markup (including anchor tags) found in the content in order to provide a clean text. This tag may not be present.
+        content:
+          type: string
+          description:  The content of the item as harvested from the original webpage of the item or as provided in an RSS-type feed. This content is stripped of all HTML markup (including anchor tags) found in the content in order to provide a clean text. This tag may not be present.
+        full_document:
+          type: string
+          description: The complete XML content of an individual document. This tag is included when specifically requested through the `include_full_document` parameter in the Request.
+    SmartIndexEntity:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The index term value or name, such as "VEHICLE AIRBAGS", "TRAFFIC ACCIDENTS", "MOTOR VEHICLE SAFETY EQUIPMENT".
+        score:
+          type: integer
+          description: The score is the document relevancy to the specific index term. Higher scores indicate a higher relevancy to the document content. The scores can be between 50 and 100. Scores lower than 50 do not have high enough relevancy and are disregarded.
+      description: This tag shows SmartIndexing terms applied to documents. Index terms apply to documents of all media types. The categories cover a wide range of topics including Banking & Finance; Medicine & Health; Computing & Information Technology; Law & Legal Systems; Trends & Events; and much more. Subject experts and information professionals create index terms and rules governing their application. These experts then iteratively test and analyze results before a term is released to production. Controlled vocabularies are applied to new documents as they are added to the system. Periodically, all indexed documents are retrospectively updated with the latest vocabularies. New terms are added regularly based on the need of a particular taxonomy and customer feedback. For more information visit the Introduction to LexisNexis SmartIndexing Technology page.
+    Metadata:
+      description: >-
+        Schema used to return the metadata information about the response.
+      type: object
+      properties:
+        total_results:
+          type: integer
+          description: Total number of matches for the search input.
+        results_returned:
+          type: integer
+          description: Total number of documents returned as part of the search.
+        elapsed_time:
+          type: string
+          description: The time taken for executing the search query and fetching the documents. Time is in milliseconds.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
