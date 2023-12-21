@@ -1,0 +1,28 @@
+{/* Start Python Security Options */}
+### Per-Client Security Schemes
+
+This SDK supports the following security scheme globally:
+
+
+
+To authenticate with the API the `bearer_auth` parameter must be set when initializing the SDK client instance. For example:
+```python
+import evolved
+from evolved.models import components, operations
+
+s = evolved.Evolved(
+    bearer_auth="<YOUR_BEARER_TOKEN_HERE>",
+)
+
+req = operations.SearchAPIRequest(
+    content=components.ContentChoice.NEWS,
+    query='string',
+)
+
+res = s.search_api.get(req)
+
+if res.response is not None:
+    # handle response
+    pass
+```
+{/* End Python Security Options */}

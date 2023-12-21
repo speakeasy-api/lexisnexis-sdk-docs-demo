@@ -10,7 +10,7 @@ generation:
     nameResolutionDec2023: true
 features:
   docs:
-    core: 1.16.2
+    core: 1.21.0
     globalSecurity: 0.1.1
     globalServerURLs: 0.1.1
     groups: 0.1.1
@@ -27,6 +27,7 @@ docs:
       webhooks: webhooks
   inputModelSuffix: input
   outputModelSuffix: output
+  static: true
 python:
   version: 0.0.1
   author: Speakeasy

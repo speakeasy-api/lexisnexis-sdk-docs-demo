@@ -1,16 +1,10 @@
 {
-  "-- guides": {
-    "title": "Guides",
-    "type": "separator"
+  "python": {
+    "type": "page",
+    "display": "hidden"
   },
-  "installation": {
-    "title": "Installation"
-  },
-  "-- resources": {
-    "title": "Resources",
-    "type": "separator"
-  },
-  "search_api": {
-    "title": "Search Api"
+  "curl": {
+    "type": "page",
+    "display": "hidden"
   }
 }

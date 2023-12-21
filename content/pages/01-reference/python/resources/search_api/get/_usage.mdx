@@ -1,0 +1,193 @@
+
+<CH.Code>
+```python Get.py
+import evolved
+from evolved.models import components, operations
+
+s = evolved.Evolved(
+    bearer_auth="<YOUR_BEARER_TOKEN_HERE>",
+)
+
+req = operations.SearchAPIRequest(
+    content=components.ContentChoice.NEWS,
+    query='string',
+)
+
+res = s.search_api.get(req)
+
+if res.response is not None:
+    # handle response
+    pass
+```
+---
+
+```json Example Response
+  {
+    "filters": [
+      {
+        "company": [
+          {
+            "name": "string",
+            "id": "string",
+            "count": "string"
+          }
+        ],
+        "content_type": [
+          {
+            "name": "string",
+            "id": "string",
+            "count": "string"
+          }
+        ],
+        "geography_by_document": [
+          {
+            "name": "string",
+            "id": "string"
+          }
+        ],
+        "industry": [
+          {
+            "name": "string",
+            "id": "string"
+          }
+        ],
+        "language": [
+          {
+            "name": "string",
+            "id": "string",
+            "count": "string"
+          }
+        ],
+        "negative_news": [
+          {
+            "name": "string",
+            "id": "string",
+            "count": "string"
+          }
+        ],
+        "people": [
+          {
+            "name": "string",
+            "id": "string",
+            "count": "string"
+          }
+        ],
+        "practice_areas_and_topics": [
+          {
+            "name": "string",
+            "id": "string"
+          }
+        ],
+        "publication_location": [
+          {
+            "name": "string",
+            "id": "string"
+          }
+        ],
+        "publication_type": [
+          {
+            "name": "string",
+            "id": "string",
+            "count": "string"
+          }
+        ],
+        "publisher": [
+          {
+            "name": "string",
+            "id": "string",
+            "count": "string"
+          }
+        ],
+        "sources": [
+          {
+            "name": "string",
+            "id": "string",
+            "count": "string"
+          }
+        ],
+        "subject": [
+          {
+            "name": "string",
+            "id": "string"
+          }
+        ],
+        "timeline": [
+          {
+            "name": "string",
+            "id": "string",
+            "count": "string"
+          }
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "lexis_nexis_identifier": "string",
+        "product_content_set_identifier": "string",
+        "royalty_reporting_key": "string",
+        "publication_type": "string",
+        "publication_name": "string",
+        "publication_date": "string",
+        "normalized_publication_date": "string",
+        "aggregation_name": "string",
+        "copyright": "string",
+        "word_length": "string",
+        "language": "string",
+        "subject": [
+          {
+            "name": "string",
+            "score": 548814
+          }
+        ],
+        "person": [
+          {
+            "name": "string",
+            "score": 592845
+          }
+        ],
+        "organization": [
+          {
+            "name": "string",
+            "score": 715190
+          }
+        ],
+        "company": [
+          {
+            "name": "string",
+            "score": 844266
+          }
+        ],
+        "state": [
+          {
+            "name": "string",
+            "score": 602763
+          }
+        ],
+        "country": [
+          {
+            "name": "string",
+            "score": 857946
+          }
+        ],
+        "industry": [
+          {
+            "name": "string",
+            "score": 544883
+          }
+        ],
+        "section": "string",
+        "title": "string",
+        "byline": "string",
+        "abstract": "string",
+        "content": "string",
+        "full_document": "string"
+      }
+    ],
+    "metadata": {
+      "total_results": 847252,
+      "results_returned": 423655,
+      "elapsed_time": "string"
+    }
+  }
+```
+</CH.Code>
