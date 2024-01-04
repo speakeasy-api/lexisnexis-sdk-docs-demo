@@ -1,5 +1,5 @@
 # The title of your site, shown in the browser tab.
-title: Speakeasy Bar SDK Docs
+title: LexisNexis Evolved API Docs
 
 # Any valid CSS color for setting the primary color of your site. E.g. #75f96f or green.
 # You must restart the server for this to take effect.
@@ -11,8 +11,8 @@ primaryColor:
 # The logo to display, based on current theme.
 # You can use a relative path or a URL. If you use a relative path, make sure the file is in the public folder.
 logo:
-  dark: /logo-dark.png
-  light: /logo-light.png
+  dark: /LexisNexis_logo.svg
+  light: /LexisNexis_logo.svg
   # The link to go to when clicking the logo
   link: https://www.speakeasyapi.dev/
 
