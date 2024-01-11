@@ -2,14 +2,13 @@
 <CH.Code>
 ```python Get.py
 import evolved
-from evolved.models import components, operations
 
 s = evolved.Evolved(
     bearer_auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-req = operations.SearchAPIRequest(
-    content=components.ContentChoice.NEWS,
+req = evolved.SearchAPIRequest(
+    content=evolved.ContentChoice.NEWS,
     query='string',
 )
 
