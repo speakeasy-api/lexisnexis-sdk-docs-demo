@@ -7,21 +7,20 @@ Handling errors in this SDK should largely match your expectations.  All operati
 
 ```python
 import evolved
-from evolved.models import components, operations
 
 s = evolved.Evolved(
     bearer_auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-req = operations.SearchAPIRequest(
-    content=components.ContentChoice.NEWS,
+req = evolved.SearchAPIRequest(
+    content=evolved.ContentChoice.NEWS,
     query='string',
 )
 
 res = None
 try:
     res = s.search_api.get(req)
-except errors.SDKError as e:
+except models.SDKError as e:
     print(e)  # handle exception
     raise(e)
 
