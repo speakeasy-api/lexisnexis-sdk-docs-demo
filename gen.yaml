@@ -1,27 +1,17 @@
-configVersion: 1.0.0
-management:
-  docChecksum: 9d773b16f6219e3612aff77b6f3488c9
-  docVersion: 1.0.0
-  speakeasyVersion: 1.128.1
-  generationVersion: 2.223.0
+configVersion: 2.0.0
 generation:
-  comments: {}
   sdkClassName: evolved
   maintainOpenAPIOrder: true
   usageSnippets:
     optionalPropertyRendering: withExample
+  useClassNamesForArrayFields: true
   fixes:
     nameResolutionDec2023: true
-  useClassNamesForArrayFields: true
-features:
-  docs:
-    core: 1.21.0
-    globalSecurity: 0.1.1
-    globalServerURLs: 0.1.1
-    groups: 0.1.1
-    nameOverrides: 0.1.0
+    parameterOrderingFeb2024: false
 docs:
-  version: 0.1.0
+  version: 0.2.0
+  docsLanguages:
+    - go
   imports:
     option: openapi
     paths:
@@ -31,6 +21,7 @@ docs:
       shared: shared
       webhooks: webhooks
   inputModelSuffix: input
+  maxMethodParams: 4
   outputModelSuffix: output
   static: true
 python:
@@ -48,8 +39,6 @@ python:
       shared: ""
       webhooks: ""
   inputModelSuffix: input
-  installationURL: https://github.com/speakeasy-sdks/evolved-python.git
   maxMethodParams: 4
   outputModelSuffix: output
   packageName: evolved-api
-  repoSubDirectory: .
