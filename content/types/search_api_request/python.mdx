@@ -2,10 +2,11 @@
 import Collapsible from "/src/components/Collapsible";
 import Labels from "/src/lib/labels";
 
-##### `content` *{`components.ContentChoice`}*
+##### `content` *{`models.ContentChoice`}*
 Content type to search on.
-<Collapsible content={() => import('/content/types/models/components/content_choice/python.mdx')} openLabel={Labels.showProperties} closeLabel={Labels.hideProperties}>
-</Collapsible>
+
+<Collapsible content={() => import('/content/types/models/content_choice/python.mdx')} openLabel={Labels.showProperties} closeLabel={Labels.hideProperties} />
+
 
 ---
 ##### `query` *{`str`}*
@@ -17,10 +18,11 @@ Search query terms. \<br\> Query input with character length between 1 and 10000
 Search filter criteria.
 
 ---
-##### `sort` *{`Optional[components.SortChoice]`}*
+##### `sort` *{`Optional[models.SortChoice]`}*
 How to sort the result set.
-<Collapsible content={() => import('/content/types/models/components/sort_choice/python.mdx')} openLabel={Labels.showProperties} closeLabel={Labels.hideProperties}>
-</Collapsible>
+
+<Collapsible content={() => import('/content/types/models/sort_choice/python.mdx')} openLabel={Labels.showProperties} closeLabel={Labels.hideProperties} />
+
 
 ---
 ##### `limit` *{`Optional[int]`}*
@@ -28,10 +30,11 @@ Number of results to return. \<br\> Valid range: 1 to 200
 
 
 ---
-##### `group_duplicates` *{`Optional[components.GroupingChoice]`}*
+##### `group_duplicates` *{`Optional[models.GroupingChoice]`}*
 The degree to which duplicate search results are grouped.
-<Collapsible content={() => import('/content/types/models/components/grouping_choice/python.mdx')} openLabel={Labels.showProperties} closeLabel={Labels.hideProperties}>
-</Collapsible>
+
+<Collapsible content={() => import('/content/types/models/grouping_choice/python.mdx')} openLabel={Labels.showProperties} closeLabel={Labels.hideProperties} />
+
 
 ---
 ##### `include_filters` *{`Optional[bool]`}*
