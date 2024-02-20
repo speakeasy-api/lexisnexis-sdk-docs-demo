@@ -10,16 +10,15 @@ You can override the default server globally by passing a server index to the `s
 
 ```python
 import evolved
-from evolved.models import components, operations
 
 s = evolved.Evolved(
     server_idx=2,
     bearer_auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-req = operations.SearchAPIRequest(
-    content=components.ContentChoice.NEWS,
-    query='string',
+req = evolved.SearchAPIRequest(
+    content=evolved.ContentChoice.NEWS,
+    query='<value>',
 )
 
 res = s.search_api.get(req)
@@ -35,16 +34,15 @@ if res.response is not None:
 The default server can also be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
 ```python
 import evolved
-from evolved.models import components, operations
 
 s = evolved.Evolved(
     server_url="https://dev-gateway.api-dev.route53.lexis.com/nexisdataplus",
     bearer_auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-req = operations.SearchAPIRequest(
-    content=components.ContentChoice.NEWS,
-    query='string',
+req = evolved.SearchAPIRequest(
+    content=evolved.ContentChoice.NEWS,
+    query='<value>',
 )
 
 res = s.search_api.get(req)

@@ -10,7 +10,7 @@ import StatusCode from '@/src/components/StatusCode';
   {/* prettier-ignore */}
   <Tab title={<StatusCode code={"200"} />}>
     *JSON object*
-    <Collapsible openLabel={Labels.showProperties} closeLabel={Labels.hideProperties} defaultOpen={true}>
+    <Collapsible defaultOpen openLabel={Labels.showProperties} closeLabel={Labels.hideProperties}>
       ##### `filters` _array (optional)_
           
         
@@ -30,7 +30,7 @@ import StatusCode from '@/src/components/StatusCode';
   {/* prettier-ignore */}
   <Tab title={<StatusCode code={"202"} />}>
     *JSON object*
-    <Collapsible openLabel={Labels.showProperties} closeLabel={Labels.hideProperties} defaultOpen={true}>
+    <Collapsible defaultOpen openLabel={Labels.showProperties} closeLabel={Labels.hideProperties}>
       ##### `retrieveToken` _string (optional)_
           
         
