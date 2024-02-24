@@ -1,0 +1,33 @@
+{/* Start Python Errors */}
+Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will raise the appropriate Error type.
+
+
+
+### Example
+
+```python
+import evolved
+from evolved import models
+
+s = evolved.Evolved(
+    bearer_auth="<YOUR_BEARER_TOKEN_HERE>",
+)
+
+req = evolved.SearchAPIRequest(
+    content=evolved.ContentChoice.NEWS,
+    query='<value>',
+)
+
+res = None
+try:
+    res = s.search_api.get(req)
+except models.SDKError as e:
+    # handle exception
+    raise(e)
+
+if res.response is not None:
+    # handle response
+    pass
+```
+
+{/* End Python Errors */}
