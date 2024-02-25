@@ -4,16 +4,16 @@ management:
   docChecksum: 9d773b16f6219e3612aff77b6f3488c9
   docVersion: 1.0.0
   speakeasyVersion: internal
-  generationVersion: 2.269.0
-  releaseVersion: 0.1.0
-  configChecksum: 381094c5bdaa2199c47b9072171b1a06
+  generationVersion: 2.272.4
+  releaseVersion: 0.1.1
+  configChecksum: 0057cee86e81fa3c580d1047a1419cd7
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/evolved-python.git
 features:
   docs:
     constsAndDefaults: 0.1.0
-    core: 1.26.2
-    globalSecurity: 0.1.1
+    core: 1.26.3
+    globalSecurity: 0.1.2
     globalServerURLs: 0.1.1
     groups: 0.1.1
     nameOverrides: 0.1.0
@@ -203,10 +203,13 @@ generatedFiles:
   - Dockerfile
   - src/pages/_app.mdx
   - src/pages/python/[[...rest]].mdx
+  - src/.gen/pages/01-reference/python/custom_http_client/_snippet.mdx
   - src/.gen/pages/01-reference/python/custom_http_client/custom_http_client.mdx
   - src/.gen/pages/01-reference/python/custom_http_client/custom_http_client_content.mdx
+  - src/.gen/pages/01-reference/python/errors/_snippet.mdx
   - src/.gen/pages/01-reference/python/errors/errors.mdx
   - src/.gen/pages/01-reference/python/errors/errors_content.mdx
+  - src/.gen/pages/01-reference/python/installation/_snippet.mdx
   - src/.gen/pages/01-reference/python/installation/installation.mdx
   - src/.gen/pages/01-reference/python/installation/installation_content.mdx
   - src/.gen/pages/01-reference/python/resources/search_api/get/_header.mdx
@@ -219,8 +222,10 @@ generatedFiles:
   - src/.gen/pages/01-reference/python/resources/search_api/search_api_content.mdx
   - src/.gen/pages/01-reference/python/resources/resources.mdx
   - src/.gen/pages/01-reference/python/resources/resources_content.mdx
+  - src/.gen/pages/01-reference/python/security_options/_snippet.mdx
   - src/.gen/pages/01-reference/python/security_options/security_options.mdx
   - src/.gen/pages/01-reference/python/security_options/security_options_content.mdx
+  - src/.gen/pages/01-reference/python/server_options/_snippet.mdx
   - src/.gen/pages/01-reference/python/server_options/server_options.mdx
   - src/.gen/pages/01-reference/python/server_options/server_options_content.mdx
   - src/.gen/pages/01-reference/python/python.mdx
