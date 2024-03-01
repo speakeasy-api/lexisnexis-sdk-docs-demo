@@ -4,9 +4,9 @@ management:
   docChecksum: 9d773b16f6219e3612aff77b6f3488c9
   docVersion: 1.0.0
   speakeasyVersion: internal
-  generationVersion: 2.272.7
-  releaseVersion: 0.1.2
-  configChecksum: bf032ab70eea7a34aa0ce64c1c290d0f
+  generationVersion: 2.275.4
+  releaseVersion: 0.1.3
+  configChecksum: 4590839e408937e95c618e687d2fce74
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/evolved-python.git
 features:
