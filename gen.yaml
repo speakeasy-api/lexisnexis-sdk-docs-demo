@@ -12,7 +12,7 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: false
 docs:
-  version: 0.1.3
+  version: 0.1.4
   docsLanguages:
     - go
   imports:
@@ -49,3 +49,4 @@ python:
   maxMethodParams: 4
   outputModelSuffix: output
   packageName: evolved-api
+  responseFormat: envelope-http
