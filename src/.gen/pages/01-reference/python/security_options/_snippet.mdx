@@ -13,12 +13,10 @@ s = evolved.Evolved(
     bearer_auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-req = evolved.SearchAPIRequest(
+res = s.search_api.get(request=evolved.SearchAPIRequest(
     content=evolved.ContentChoice.NEWS,
     query='<value>',
-)
-
-res = s.search_api.get(req)
+))
 
 if res.response is not None:
     # handle response
