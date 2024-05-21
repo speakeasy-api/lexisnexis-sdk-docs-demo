@@ -13,14 +13,12 @@ s = evolved.Evolved(
     bearer_auth="<YOUR_BEARER_TOKEN_HERE>",
 )
 
-req = evolved.SearchAPIRequest(
-    content=evolved.ContentChoice.NEWS,
-    query='<value>',
-)
-
 res = None
 try:
-    res = s.search_api.get(req)
+    res = s.search_api.get(request=evolved.SearchAPIRequest(
+    content=evolved.ContentChoice.NEWS,
+    query='<value>',
+))
 except models.SDKError as e:
     # handle exception
     raise(e)
